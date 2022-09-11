@@ -1,17 +1,10 @@
 <script>
-  import { storeToRefs } from 'pinia'
+  import { mapStores, storeToRefs } from 'pinia'
 import { useCounterStore } from '../stores/counter'
 import { useProductsStore } from '../stores/products'
 
 
 export default {
-  setup() {
-    const counterStore = useCounterStore()
-    const productsStore = useProductsStore()
-
-
-    return { productsStore: { ...productsStore}, counterStore }
-  },
   computed: {
     doubleCount() {
      return this.counterStore.doubleCount
@@ -19,7 +12,8 @@ export default {
     allProducts() {
       console.log(this.productsStore)
       return this.productsStore.getProducts
-    }
+    },
+    ...mapStores(useProductsStore, useCounterStore)
   },
   methods: {
     incrementAndPrint() {
@@ -29,6 +23,7 @@ export default {
     createNewProduct(event) {
       console.log(event.target.value)
       this.productsStore.newProduct(event.target.value)
+      console.log(this.productsStore.getProducts)
       event.target.value = ''
     }
   },
@@ -43,7 +38,7 @@ export default {
     <p>{{ doubleCount}}</p>
     <button @click="incrementAndPrint">Increment</button>
 
-    <h4 v-for="product in allProducts" :key="product">{{ product }}</h4>
+    <h4 v-for="product in productsStore.getProducts" :key="product">{{ product }}</h4>
 
     <input type="text" name="Product" id="newProduct" @change="(e) => createNewProduct(e)">
   </div>
