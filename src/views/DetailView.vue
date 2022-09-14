@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Soy el detalle</h1>
-    <p>Id del producto: {{ $route.params.productId }}</p>
+    <p class="algo">Id del producto: {{ $route.params.productId }}</p>
     <p>Nombre Producto: {{ currentProduct.name }}</p>
     <p>color del producto: {{ currentProduct.color }}</p>
   </div>
@@ -21,7 +21,6 @@ export default {
     this.currentProduct = this.productsStore.getProductById(
       this.$route.params.productId
     );
-    console.log(this.currentProduct);
   },
 };
 </script>

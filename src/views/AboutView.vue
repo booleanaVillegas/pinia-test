@@ -27,9 +27,6 @@ export default {
       this.productsStore.newProduct(newProduct);
       this.name = "";
       this.color = "";
-    },
-    setImage(event) {
-      console.log(event.target.files)
     }
   },
   mounted(){
@@ -53,7 +50,6 @@ export default {
     </RouterLink>
     <input placeholder='Nombre' v-model="name" type="text" name="Name" id="newProduct" />
     <input placeholder="color" v-model="color" type="text" name="Color" id="Color" />
-    <input type="file" name="File" id="file" @change="(e) => setImage(e)">
     <button  @click="(e) => createNewProduct()">Crear Nuevo</button>
   </div>
 </template>

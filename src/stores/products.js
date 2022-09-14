@@ -16,15 +16,11 @@ export const useProductsStore = defineStore("products", {
         newProduct(product) {
             this.localStorageProducts.push(product)
             this.products.push(product);
-            console.log(localStorage)
-            console.log(window.localStorage)
             localStorage.setItem('products', JSON.stringify(this.localStorageProducts))
         },
         loadProducts() {
             this.localStorageProducts = JSON.parse(localStorage.getItem('products'))
-            console.log(this.localStorageProducts)
             this.products = this.products.concat([...this.localStorageProducts])
-            console.log(this.products)
         },
         getProductById(id) {
             const filteredProducts = this.products.filter((product) => id.toLowerCase() === product.name.toLowerCase());
