@@ -1,38 +1,38 @@
 <script>
-  import { storeToRefs } from 'pinia'
-import { useCounterStore } from '../stores/counter'
-import { useProductsStore } from '../stores/products'
-
+import { mapStores } from "pinia";
+import { useCounterStore } from "../stores/counter";
+import { useProductsStore } from "../stores/products";
 
 export default {
-  setup() {
-    const counterStore = useCounterStore()
-    const productsStore = useProductsStore()
-
-
-    return { productsStore: { ...productsStore}, counterStore }
+  data() {
+    return {
+      name: "",
+      color: "",
+      file: {},
+    };
   },
   computed: {
-    doubleCount() {
-     return this.counterStore.doubleCount
-    },
+    ...mapStores(useProductsStore),
     allProducts() {
-      console.log(this.productsStore)
-      return this.productsStore.getProducts
-    }
+      return this.productsStore.getProducts;
+    },
   },
   methods: {
-    incrementAndPrint() {
-      this.counterStore.increment()
-      console.log('New Count:', this.counterStore.count)
-    },
-    createNewProduct(event) {
-      console.log(event.target.value)
-      this.productsStore.newProduct(event.target.value)
-      event.target.value = ''
+    createNewProduct() {
+      const newProduct = {
+        name: this.name,
+        color: this.color,
+      };
+
+      this.productsStore.newProduct(newProduct);
+      this.name = "";
+      this.color = "";
     }
   },
-}
+  mounted(){
+    this.productsStore.loadProducts()
+  }
+};
 </script>
 
 <template>
