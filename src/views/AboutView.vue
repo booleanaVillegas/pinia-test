@@ -37,13 +37,15 @@ export default {
 
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
-    <h2>This is the counter</h2>
-    <p>{{ counterStore.getCount }}</p>
-    <p>{{ doubleCount}}</p>
-    <button @click="incrementAndPrint">Increment</button>
+    <h2>Productos</h2>
 
-    <h4 v-for="product in allProducts" :key="product">{{ product }}</h4>
+    <div v-for="product in allProducts" :key="product.name">
+      <h3>{{ product.name }}</h3>
+      <h3>{{ product.author }}</h3>
+      <h3>{{ product.description }}</h3>
+      <h3>{{ JSON.stringify(product.genres) }}</h3>
+      <br/>
+    </div>
 
     <input type="text" name="Product" id="newProduct" @change="(e) => createNewProduct(e)">
   </div>
