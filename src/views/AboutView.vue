@@ -14,7 +14,8 @@ export default {
   computed: {
     ...mapStores(useProductsStore),
     allProducts() {
-      return this.productsStore.getProducts;
+      console.log()
+      return this.productsStore.getFilteredProducts;
     },
   },
   methods: {

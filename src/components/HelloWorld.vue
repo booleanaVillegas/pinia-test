@@ -1,19 +1,46 @@
 <script>
+  import { useProductsStore } from "../stores/products";
+  import { mapStores } from "pinia";
+
 export default {
+  data() {
+    return {
+      keyword: '',
+      genre: 'All'
+    }
+  },
   props: {
     msg: String
-  }
+  },
+  methods: {
+    setFilter(key, value) {
+      console.log('applying filters???')
+      this.productsStore.applyFilter(key, value)
+    }
+  },
+  computed: {
+    ...mapStores(useProductsStore),
+    getGenres() {
+      return this.productsStore.getAllGenres
+    }
+  },
 }
 </script>
 
 <template>
   <div class="greetings">
-    <h1 class="green">{{ msg }}</h1>
-    <h3>
-      You’ve successfully created a project with
-      <a href="https://vitejs.dev/" target="_blank" rel="noopener">Vite</a> +
-      <a href="https://vuejs.org/" target="_blank" rel="noopener">Vue 3</a>.
-    </h3>
+    <h3>Filtros:</h3>
+    <label for="keyword">Search by Keyword</label>
+    <input type="text" name="keyword" id="keyword" v-model="keyword" @change="() => setFilter('keyword', keyword)">
+    <br/>
+    
+    
+    <label for="genero">Generos</label>
+
+
+    <select name="genero" id="genero" v-model="genre" @change="() => setFilter('genre', genre)">
+      <option v-for="genre in getGenres" :key="genre" :value="genre">{{genre}}</option>
+    </select>
   </div>
 </template>
 
@@ -34,6 +61,7 @@ h3 {
 }
 
 @media (min-width: 1024px) {
+
   .greetings h1,
   .greetings h3 {
     text-align: left;
