@@ -19,6 +19,8 @@ export default {
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/about">About</RouterLink>
+        <RouterLink to="/sign-in">Sign In</RouterLink>
+        <RouterLink to="/sign-up">Sign Up</RouterLink>
       </nav>
     </div>
   </header>
